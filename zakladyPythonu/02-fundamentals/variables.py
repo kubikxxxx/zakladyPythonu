@@ -33,6 +33,11 @@ Některé objekty mohou mít explicitně přiřazené jméno, obecně označovan
 #? b) identitu objektu (jeho adresu v paměti)
 #? Ukažte to na příkladech proměnných students_count, rating, is_published a vypište výstupy do konzole
 
+# a)
+print(f'Typ students_count: {type(students_count)}')
+# b)
+print(f'Id rating: {id(rating)}')
+
 # Numerické operátory
 # print(10 + 3)
 # print(10 - 3)
@@ -66,11 +71,38 @@ hexadecimal = 0x12c #Hexadecimal Literal
 
 '''Úkol B'''
 #? Vypište do poznámky všechny bitové operátory, které nabízí Python
+# Bitové operátory v Pythonu:
+# 1. AND (&) – Bitová konjunkce (logický součin)
+# 2. OR (|) – Bitová disjunkce (logický součet)
+# 3. XOR (^) – Exkluzivní OR (pouze jeden bit musí být 1)
+# 4. NOT (~) – Bitová negace (inverze bitů)
+# 5. Posun doleva (<<) – Posune bity doleva o daný počet míst
+# 6. Posun doprava (>>) – Posune bity doprava o daný počet míst
+
+
 #? Do proměnné myself_binary uložte binární číslo vytvořené na základě osmi prvních znaků z vašeho jména a příjmení (souhláska = 1, samohláska 0)
+def je_samohlaska(znak):
+    return znak.lower() in "aeiou"
+
+jmeno = "JakubNetolický"[:8]
+
+myself_binary = ''.join(['1' if not je_samohlaska(z) else '0' for z in jmeno])
+
+print(myself_binary)
+
+
 #? Příklad - HildaDok: 10110101
+
 #? Vypište toto binární číslo v desítkové soustavě
+print(int(myself_binary, base=2))
 #? Pro toto binární číslo proveďte nejprve bitový posun o 2 bity vpravo, poté vypište výsledek v desítkové soustavě
+myself_number = int(myself_binary, 2)
+myself_binary_posun = myself_number >> 2
+print(myself_binary_posun)
 #? Proveďte bitový součin hexadecimálního čísla "1A" a vašeho binárního čísla a opět vypište v desítkové soustavě
+print(int(0x1A & myself_number))
+print(f"Binární součin čísla {bin(0x1A)} a {bin(myself_number)} je {bin(0x1A & myself_number)}")
+
 #? Výsledek zobrazte jako formátovaný řetězec - např. "Binární součin čísla 0b11010 a 0b10110101 je 0b10000"
 
 
@@ -119,7 +151,7 @@ nebo zápis z.real reprezentují reálnou část čísla:
 # print(float(z))
 #
 # print(abs(z))
-# Je totéž jako sqrt(z.real**2 + z.imag**2)
+# Je totéž jako sqrt(z.real ** 2 + z.imag ** 2)
 
 '''
 Funguje pouze  v interaktivní konzoli!

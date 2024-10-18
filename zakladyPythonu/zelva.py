@@ -39,6 +39,7 @@ def oval():
     setposition(300, 0)
     left(90)
     pendown()
+    speed(0)
     for _ in range(2):
         i = 0
         while i < 90:
@@ -52,6 +53,7 @@ def oval():
     mainloop()
 
 def spiral():
+    speed(0)
     bgcolor("black")
     pen = Turtle()
     pen.speed(0)

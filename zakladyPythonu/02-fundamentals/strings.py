@@ -150,11 +150,53 @@ Použijte kombinaci různý možností pro práci s řetězci (včetně různýc
 funkční kód, tím lepší).
 
 1. Převeďte "česky" zadané datum - např. 12. 10. 2020 - do podoby "databázové" podoby - např. 2020-10-12
+'''
+
+# datum = input("zadejte datum ve formátu: 20.03.2020\n")
+# datum_database = datum[-4:] + "-" + datum[3:5] + "-" + datum[:2]
+# print(datum_database)
+
+'''
 2. Vytvořte funkci, která vyrobí ze zadaného sousloví:
    a) identifikátor pro proměnné používané v Pythonu - např. To je proměnná v Pythonu = to_je_promenna_v_pythonu
    b) identifikátor pro camel syntax v JS - např. To je proměnná v Pythonu = toJePromennaVPythonu 
    Obě možnosti by měly být vyřešeny v jedné funkci s využitím parametrů.
    Kdo si chce úkol trochu zjednodušit, nemusí řešit znaky s českou diakritikou. 
+   
+'''
+
+import unicodedata
+user_input = input("Zadejte nějaké sousloví: ")
+volba = input("Zadejte:\n1 pro Python syntax\n2 pro JS syntax\n")
+
+def odstran_diakritiku(text):
+    normalized_text = unicodedata.normalize('NFD', text)
+    return ''.join(c for c in normalized_text if unicodedata.category(c) != 'Mn')
+
+def premenaZnaku(volba, user_input):
+    user_input = odstran_diakritiku(user_input)
+    if volba == "1":
+        user_input = user_input.lower().replace(" ", "_")
+    elif volba == "2":
+        words = user_input.split()
+        user_input = words[0].lower() + ''.join(word.capitalize() for word in words[1:])
+    return user_input
+print(premenaZnaku(volba, user_input))
+
+'''
 3. Vytvořte funkci, která vygeneruje náhodná hesla pro počet osob zadaný v parametru tak, aby heslo začínalo
    3 velkými písmeny, pokračovalo 3 malými písmeny, jedním speciálním znakem (-/+*) a končilo 3 náhodnými číslicemi.
 '''
+import random
+
+velka = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+mala = "abcdefghijklmnopqrstuvwxyz"
+specialni = "!@#$%^&*()_+"
+cisla = "0123456789"
+pocet = input("Zadejte pocet hesel, ktere potrebujete vygenerovat:")
+
+for j in range (0, int(pocet)):
+
+    heslo = ("".join(random.choice(velka) for _ in range(3)) + "".join(random.choice(mala) for _ in range(3)) + "".join(random.choice(specialni) for _ in range(3)) +"".join(random.choice(cisla) for _ in range(3)) )
+
+    print(f"Vygenerované heslo: {heslo}")
